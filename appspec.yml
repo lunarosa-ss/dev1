@@ -1,0 +1,133 @@
+#===============================================================================
+# YAML Config
+#===============================================================================
+version: 0.0
+os: linux
+files:
+  - source: var/www/virtual_host/dev1
+    destination: /var/www/virtual_host/dev1
+
+permissions:
+  - object: /var/www/virtual_host/dev1
+    pattern: "**"
+    owner: apache
+    group: apache
+    mode: "0644"
+    type:
+      - file
+
+  - object: /var/www/virtual_host/dev1
+    pattern: "**"
+    owner: apache
+    group: apache
+    mode: 2755
+    type:
+      - directory
+
+hooks:
+   AfterInstall:
+   - location: Scripts/ChownChmodDocumentRoot_html.sh
+     timeout: 180
+     runas: root
+#===============================================================================
+
+# CodeDeploy AppSpec File リファレンス
+# https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/reference-appspec-file.html
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#version: 0.0
+#os: linux
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# Git リポジトリルート直下からの相対パス「var/www/html」ディレクトリ（source 項）以下を
+# 再帰的に実サーバの絶対パス「/var/www/html」（destination 項）以下にコピーする
+# 
+# [Caution!]
+# 何度も検証を繰り返して気づいた重要ポイント
+# 一旦 destination 直下を再帰的に全ファイルを削除してしまいます！
+# そのあと、source で指定した資源をコピーします。よって 
+# source var/www/html/index.html と特定ファイルのみ指定すると、その他のファイルが
+# 全部吹っ飛びます！！！
+#
+# それと、Deploy 時刻タイムスタンプが UTC になります！
+#
+# もはやあきらめるしかないか
+# hooks: 項の AfterInstall: で指定したスクリプトで touch 掛けて試すかしかない
+# TZ=Asia/Tokyo touch ファイル
+#
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#files:
+#  - source: var/www/html
+#    destination: /var/www/html
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# permissions:
+#   Amazon Linux、Ubuntu Server、および RHEL インスタンスのみに適用される
+#   EC2/オンプレミス デプロイにのみ使用されます
+#   AWS Lambda または Amazon ECS のデプロイには使用されない
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#permissions:
+#  - object: /var/www/html
+#    pattern: "**"
+#    owner: apache
+#    group: apache
+#    mode: "0644"
+#    type:
+#      - file
+#
+#  - object: /var/www/html
+#    pattern: "**"
+#    owner: apache
+#    group: apache
+#    mode: 2755
+#    type:
+#      - directory
+#
+#hooks:
+#   AfterInstall:
+#   - location: Scripts/ChownChmodDocumentRoot_html.sh
+#     timeout: 180
+#     runas: root
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+################################################################################
+# リファレンス
+################################################################################
+# object
+#     必須。これは、インスタンスへのファイルシステムオブジェクトのコピー後に、
+#     指定されたアクセス権限を適用する一連のファイルシステムオブジェクト
+#     (ファイルまたはディレクトリ/フォルダ) です。文字列で object を指定します。
+# 
+# pattern
+#     オプション。アクセス権限を適用するパターンを指定します。指定しない場合、
+#     または特殊文字 "**" で指定する場合、type に応じて一致するすべてのファイル
+#     またはディレクトリに、指定されたアクセス権限が適用されます。 
+#     引用符 ("") 付きの文字列で pattern を指定します。
+# 
+# except
+#     例外とするファイルまたはディレクトリを指定します。
+#     角括弧で囲った文字列のカンマ区切りリストで except を指定します。
+# 
+# owner
+#     object の所有者の名前。指定しない場合、既存のすべての所有者が元のファイルに
+#     適用されます。それ以外の場合、ディレクトリ/フォルダ構造は、コピーオペレー
+#     ションによって変更されません。文字列で owner を指定します。
+# 
+# group
+#     object のグループの名前。指定しない場合、既存のすべてのグループが元の
+#     ファイルに適用されます。それ以外の場合、ディレクトリ/フォルダ構造は、コピー
+#     オペレーションによって変更されません。文字列で group を指定します。
+# 
+# mode
+#     許可を指定する数値 object。モード設定は Linux の chmod コマンド構文に従います。
+#     値に先頭のゼロが含まれている場合は、二重引用符で囲むか、先頭のゼロを削除して
+#     3桁のみが残るようにする必要があります。u+x などの記号表記はサポートされていません。
+# 
+# type
+#     指定されたアクセス許可を適用するオブジェクトのタイプ。type は、 file または
+#     設定できる文字列 directory です。file を指定した場合、アクセス許可は、コピー
+#     オペレーションの後に（object 自体ではなく） object 内に直接含まれるファイルのみに
+#     適用されます。directory を指定した場合、アクセス権限は、コピーオペレーションの
+#     後に（object 自体ではなく）、object 内のいずれかの場所にあるすべての
+#     ディレクトリ/フォルダに再帰的に適用されます。
+# 
