@@ -17,6 +17,7 @@ permissions:
     type:
       - file
 
+permissions:
   - object: /var/www/virtual_host/dev1
     pattern: ".htaccess"
     owner: apache
