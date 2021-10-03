@@ -19,7 +19,7 @@ permissions:
 #-------------------------------------------------------------------------------
 files:
   - source: var/www/virtual_host/dev1/.htaccess
-    destination: /var/www/virtual_host/dev1/.htaccess
+    destination: /var/www/virtual_host/dev1/
 
 permissions:
   - object: /var/www/virtual_host/dev1
