@@ -16,20 +16,13 @@ permissions:
     type:
       - file
 
-#-------------------------------------------------------------------------------
-files:
-  - source: var/www/virtual_host/dev1/.htaccess
-    destination: /var/www/virtual_host/dev1/
-
-permissions:
   - object: /var/www/virtual_host/dev1
     pattern: ".htaccess"
     owner: apache
     group: apache
-    mode: "0640"
+    mode: "0600"
     type:
       - file
-#-------------------------------------------------------------------------------
 
   - object: /var/www/virtual_host/dev1
     pattern: "**"
