@@ -7,10 +7,12 @@ files:
   - source: var/www/virtual_host/dev1
     destination: /var/www/virtual_host/dev1
 
+# 特定のファイル除外は except で配列指定
+#	except: [.htaccess]  これを試したらデプロイエラーだった
+#
 permissions:
   - object: /var/www/virtual_host/dev1
     pattern: "**"
-	except: [.htaccess]
     owner: apache
     group: apache
     mode: "0644"
