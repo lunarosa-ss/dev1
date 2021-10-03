@@ -2,25 +2,35 @@
 <html lang=ja>
   <head>
     <meta charset="utf-8">
+
+    <!-- link 、visited、hover、active の順で記述する必要あり -->
+    <style type="text/css">
+      a:link    { color: #00ff7f; }
+      a:visited { color: #e6e6e6; }
+      a:hover   { color: #ffff00; }
+      a:active  { color: #ee82ee; }
+    </style>
+
   </head>
 
+  <!-- 背景色：黒 -->
   <body bgcolor=#1c1c1c>
-  <!-- body bgcolor=aliceblue -->
-  <!-- body bgcolor=lavender -->
-  <!-- body bgcolor=black --> 
 
-    <h2><font color=yellow>DEV1.ENRISE-DEV.COM</font></h2>
+    <h2><font color="yellow">DEV1.ENRISE-DEV.COM</font></h2>
     <hr>
 
 	<font color=white>
     <!-- これはコメント -->
     <p>テストページ</p>
 
-    <b>Hello World!</b></ br>
+    <b><h3>Hello World!</h3></b></ br>
 
 	<p>
-	<li><a href="https://hubhost.enrise-dev.com">HUBHOST</a>
+	<!-- ハイパーリンク文字色：シアン, 下線なし -->
+	<li><a href="https://hubhost.enrise-dev.com" style="text-decoration:none">
+	       <font color="cyan">HUBHOST : https://hubhost.enrise-dev.com/</font></a>
 	</font>
+	<p><a href="https://www.google.co.jp/">Google</a></p>
 
   </body>
 </html>
