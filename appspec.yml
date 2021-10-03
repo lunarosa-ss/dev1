@@ -7,6 +7,10 @@ files:
   - source: var/www/virtual_host/dev1
     destination: /var/www/virtual_host/dev1
 
+files:
+  - source: var/www/virtual_host/dev1/.htaccess
+    destination: /var/www/virtual_host/dev1/.htaccess
+
 permissions:
   - object: /var/www/virtual_host/dev1
     pattern: "**"
