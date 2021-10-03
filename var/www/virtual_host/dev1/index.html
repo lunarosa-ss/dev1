@@ -34,6 +34,29 @@
 
 	<!-- html ファイル内 PHP コード実行 but このままだと背景色が白くなる -->
 	<!-- <?php phpinfo(); ?> -->
+	<!--
+		.html ファイルのまま PHP コード実行させる設定
+		# AddType を使う方法
+			.htaccess に下記を記載する
+			=========================================
+			<FilesMatch "\.html$">
+			    AddType application/x-httpd-php .html
+			</FilesMatch>
+			=========================================
+			AddType：MIMEタイプを設定する、という宣言
+			MIME-type：MIMEタイプの文字列
+			extension：MIMEタイプを設定する拡張子、複数指定する場合は半角スペースで区切る
+
+        # AddHandlerを使う方法
+			=========================================
+		    <FilesMatch "\.html$">
+		        AddHandler php5-script .html
+		    </FilesMatch>
+			=========================================
+			AddHandler：ハンドラ(動作の種類)を設定する、という宣言
+			handler-name：ハンドラの文字列
+			extension：ハンドラを設定する対象の拡張子、複数指定する場合は半角スペースで区切る
+	-->
 
   </body>
 </html>
