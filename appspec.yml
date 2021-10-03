@@ -10,6 +10,7 @@ files:
 permissions:
   - object: /var/www/virtual_host/dev1
     pattern: "**"
+	except: [.htaccess]
     owner: apache
     group: apache
     mode: "0644"
