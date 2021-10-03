@@ -7,9 +7,9 @@ files:
   - source: var/www/virtual_host/dev1
     destination: /var/www/virtual_host/dev1
 
-files:
-  - source: var/www/virtual_host/dev1/.htaccess
-    destination: /var/www/virtual_host/dev1/.htaccess
+#files:
+#  - source: var/www/virtual_host/dev1/.htaccess
+#    destination: /var/www/virtual_host/dev1/.htaccess
 
 permissions:
   - object: /var/www/virtual_host/dev1
@@ -20,14 +20,14 @@ permissions:
     type:
       - file
 
-permissions:
-  - object: /var/www/virtual_host/dev1
-    pattern: ".htaccess"
-    owner: apache
-    group: apache
-    mode: "0640"
-    type:
-      - file
+#permissions:
+#  - object: /var/www/virtual_host/dev1
+#    pattern: ".htaccess"
+#    owner: apache
+#    group: apache
+#    mode: "0640"
+#    type:
+#      - file
 
   - object: /var/www/virtual_host/dev1
     pattern: "**"
