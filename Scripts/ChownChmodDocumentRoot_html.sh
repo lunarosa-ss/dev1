@@ -5,6 +5,9 @@ TARGET=/var/www/virtual_host/dev1
 chown apache:apache $TARGET
 chmod 2755 $TARGET
 
+# .htaccess があればモード 600 に設定
+find $TARGET -type f -name ".htaccess" -exec chmod 600 {} \;
+
 # Deploy 時のタイムスタンプが UTC になってしまう
 # touch コマンドに TZ を指定しても挙動に変化はなかったため
 # この方式は不採用
