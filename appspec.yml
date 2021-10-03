@@ -18,7 +18,7 @@ permissions:
       - file
 
   - object: /var/www/virtual_host/dev1
-    pattern: ".htaccess
+    pattern: ".htaccess"
     owner: apache
     group: apache
     mode: 0600
